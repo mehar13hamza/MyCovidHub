@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Admin Login</title>
+    <link href="{% static 'admin/dist/css/styles.css' %}" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+        <main>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-5">
+                        <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card-header"><h3 class="text-center font-weight-light my-4">Administrator</h3></div>
+                            <div class="card-body">
+                                <form method = "POST" action = "">
+                                    {% csrf_token %}
+                                    <div class="form-group"><label class="small mb-1" for="inputEmailAddress">Username</label><input class="form-control py-4" name = "username" id="inputEmailAddress" type="text" placeholder="Enter username" required /></div>
+                                    <div class="form-group"><label class="small mb-1" for="inputPassword">Password</label><input class="form-control py-4" name = "password" id="inputPassword" type="password" placeholder="Enter password" required /></div>
+                                    <div class="form-group">
+
+                                    </div>
+                                    <div class="form-group d-flex align-items-center justify-content-center mt-4 mb-0"><button class="btn btn-primary">Login</button></div>
+                                </form>
+                            </div>
+                            <div class="card-footer text-center">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="{% static 'admin/dist/js/scripts.js' %}"></script>
+
+
+
+{% if no_match %}
+<script>
+					$("#exampleModalLongTitle").text("Invalid Credentials")
+                     $("#exampleModalCenter").modal('show');
+                    $(".modal-body").text("Invalid username or password")
+
+
+            </script>
+{% endif %}
+
+
+
+</body>
+</html>

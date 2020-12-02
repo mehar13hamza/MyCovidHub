@@ -1,0 +1,137 @@
+{% include './includes/sidebar.html' %}
+
+{% load static %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid">
+            <h1 class="mt-4">Dashboard</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="card mb-4">
+                        <div class="card-header"><i class="fas fa-chart-bar mr-1"></i>All Test Results</div>
+                        <div class="card-body">
+                            {% for test_result in test_results %}
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{% static 'img/user-img.png' %}" style="border-radius:50%; height:250px; width:250px;" />
+                                    </div>
+                                    <br>
+
+                                    <table class="table" border="0">
+                                        <tbody>
+                                        <tr>
+                                            <td><strong>Email</strong></td>
+                                            <td align="center">{{test_result.email}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>Full Name</strong></td>
+                                            <td align="center">{{test_result.full_name}}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td><strong>Age</strong></td>
+                                            <td align="center">{{test_result.age}}</td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td><strong>Gender</strong></td>
+                                            <td align="center">{{test_result.gender}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>Address</strong></td>
+                                            <td align="center">{{test_result.address}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>Postal Code</strong></td>
+                                            <td align="center">{{test_result.postcode}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>TTN Code</strong></td>
+                                            <td align="center">{{test_result.ttn_code.ttn_no}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><strong>Test Result</strong></td>
+                                            <td align="center">{{test_result.test_result}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" align="center"><a class="btn btn-danger" href="{% url 'delete_test_result' id=test_result.id %}" style="color:white">Delete</a></td>
+
+                                        </tr>
+
+
+
+
+                                        </tbody>
+                                    </table>
+                                    <hr>
+
+                                </div>
+                            {% endfor %}
+
+                            {% if test_results.has_other_pages %}
+                            <ul class="pagination">
+                                {% if test_results.has_previous %}
+                                <li class = "page-item"><a class = "page-link" href="?page={{ test_results.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                <li class = "page-item" class="disabled"><span class = "page-link">&laquo;</span></li>
+                                {% endif %}
+                                {% for i in test_results.paginator.page_range %}
+                                {% if test_results.number == i %}
+                                <li  class="active page-item"><span class = "page-link">{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                <li class = "page-item"><a class = "page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if test_results.has_next %}
+                                <li class = "page-item"><a class = "page-link" href="?page={{ test_results.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                <li class="disabled page-item"><span class = "page-link">&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="modal fade" id="errors" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Request Unsuccessful!!</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">{{errors}}</div>
+                <div class="modal-footer">
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Go back</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if errors %}
+    <script>
+
+    $("#errors").modal('show');
+  </script>
+    {% endif %}
+
+    {% include './includes/footer.html' %}
